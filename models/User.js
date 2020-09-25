@@ -8,9 +8,10 @@ const userSchema = new Schema({
     googleId: String,
     about: String,
     image: String,
-    messages: [{
+    backgroundImage: String,
+    chats: [{
         type: Schema.Types.ObjectId,
-        ref: 'User'
+        ref: "Chat"
     }],
     crewTitle: {
         type: String,

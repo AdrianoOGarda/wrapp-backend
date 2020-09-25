@@ -4,7 +4,7 @@ const User = require('../models/User');
 const passport = require('../config/passport');
 
 router.post('/signup', (req, res, next) => {
-    User.register(req.body, req.body.password)
+    User.register({...req.body, image: "https://www.pngitem.com/pimgs/m/210-2102461_vector-illustration-of-filmmaking-and-video-production-movie.png" }, req.body.password)
         .then((user) => res.status(201).json({ user }))
         .catch((err) => res.status(500).json({ err }));
 });
@@ -20,7 +20,7 @@ router.get('/logout', (req, res, next) => {
 });
 
 router.get('/profile', isAuth, (req, res, next) => {
-    User.findById(req.user._id)
+    User.findById(req.user._id).populate("chats")
         .then((user) => res.status(200).json({ user }))
         .catch((err) => res.status(500).json({ err }));
 });

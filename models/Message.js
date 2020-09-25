@@ -1,14 +1,10 @@
 const { Schema, model } = require('mongoose');
 
 const messageSchema = new Schema({
-    description: String,
-    owner: {
+    body: String,
+    chat: {
         type: Schema.Types.ObjectId,
-        ref: "User"
-    },
-    recipient: {
-        type: Schema.Types.ObjectId,
-        ref: "User"
+        ref: "Chat"
     }
 }, {
     timestamps: true,

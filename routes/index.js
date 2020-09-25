@@ -34,8 +34,12 @@ const {
 
 const {
     createMessage,
-    getMessages
-} = require("../controllers/message")
+    getAllMessages,
+    createChat,
+    getAllChats,
+    getChat,
+} = require("../controllers/message");
+const { Router } = require('express');
 
 
 router.get('/', (req, res, next) => {
@@ -74,9 +78,19 @@ router.put("/jobPosts/:jobPostId", catchErrors(updateJobPost))
 router.delete("/jobPosts/:jobPostId", catchErrors(deleteJobPost))
 
 
+//==========================CHAT================================
+router.post("/chat/:chatId", catchErrors(createChat))
+router.get("/chat", catchErrors(getAllChats))
+router.get("/chat/:chatId", catchErrors(getChat))
+
+
 //==========================MESSAGES============================
-router.get("/messages/:ownerId", catchErrors(getMessages))
-router.post("/messages/:recipientId", catchErrors(createMessage))
+router.post("/messages/:chatId", catchErrors(createMessage))
+
+
+//==========================MESSAGES============================
+// router.get("/messages/:ownerId", catchErrors(getMessages))
+// router.post("/messages/:recipientId", catchErrors(createMessage))
 
 
 

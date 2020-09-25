@@ -6,7 +6,7 @@ exports.getUsers = async(req, res) => {
 }
 
 exports.getUser = async(req, res) => {
-    const user = await User.findById(req.params.userId)
+    const user = await (await User.findById(req.params.userId))
     res.status(200).json({ user })
 }
 
