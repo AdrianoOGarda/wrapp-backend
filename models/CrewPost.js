@@ -9,7 +9,7 @@ const crewPostSchema = new Schema({
     lookingFor: {
         type: String,
         enum: [
-            "Art Directors",
+            "Art Director",
             "Assistant Food Stylist",  
             "Assistant Director / 1st AD",
             "Assistant Director / 2nd AD",

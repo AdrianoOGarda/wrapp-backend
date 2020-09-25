@@ -4,6 +4,7 @@ const projectSchema = new Schema({
     name: String,
     premise: String,
     location: String,
+    date: String,
     image: String,
     posts: [{
         type: Schema.Types.ObjectId,
