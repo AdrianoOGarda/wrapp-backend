@@ -20,9 +20,11 @@ const server = http.createServer(app);
 const io = require('socket.io')(server);
 
 io.on('connection', socket => {
+    socket.emit("mensajerecibido", "hola")
 
-    socket.on('nuevoMensaje', mensaje => {
-        console.log(mensaje)
+    socket.on('mensajeenviado', obj => {
+        console.log('nuevo mensaje a -->', obj.recipient)
+        io.emit("mensajerecibido", obj.recipient)
     })
 
 });

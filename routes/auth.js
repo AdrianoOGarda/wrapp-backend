@@ -11,7 +11,15 @@ router.post('/signup', (req, res, next) => {
 
 router.post('/login', passport.authenticate('local'), (req, res, next) => {
     const { user } = req;
-    res.status(200).json({ user });
+    User.findById(user._id).populate("chats").populate({
+            path: 'chats',
+            populate: { path: 'person1', model: 'User' }
+        }).populate({
+            path: 'chats',
+            populate: { path: 'person2', model: 'User' }
+        })
+        .then((user) => res.status(200).json({ user }))
+        .catch((err) => res.status(500).json({ err }));
 });
 
 router.get('/logout', (req, res, next) => {
@@ -20,7 +28,13 @@ router.get('/logout', (req, res, next) => {
 });
 
 router.get('/profile', isAuth, (req, res, next) => {
-    User.findById(req.user._id).populate("chats")
+    User.findById(req.user._id).populate("chats").populate({
+            path: 'chats',
+            populate: { path: 'person1', model: 'User' }
+        }).populate({
+            path: 'chats',
+            populate: { path: 'person2', model: 'User' }
+        })
         .then((user) => res.status(200).json({ user }))
         .catch((err) => res.status(500).json({ err }));
 });

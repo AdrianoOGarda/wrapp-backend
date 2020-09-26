@@ -21,7 +21,7 @@ exports.getAllChats = async(req, res) => {
 }
 
 exports.getChat = async(req, res) => {
-    const chat = await Chat.findById(req.params.chatId)
+    const chat = await Chat.findById(req.params.chatId).populate("person1").populate("person2").populate("messages")
     res.status(200).json({ chat })
 }
 
@@ -30,7 +30,8 @@ exports.createMessage = async(req, res) => {
     const { chatId } = req.params
     const message = await Message.create({
         body,
-        chat: chatId
+        chat: chatId,
+        owner: req.user.id
     })
 
     await Chat.findByIdAndUpdate(chatId, { $push: { messages: message } })
