@@ -6,6 +6,7 @@ const crewPostSchema = new Schema({
     location: String,
     image: String,
     contactInfo: String,
+    budget: Number,
     lookingFor: {
         type: String,
         enum: [
