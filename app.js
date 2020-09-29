@@ -55,6 +55,6 @@ app.use('/api', index);
 app.use('/api', auth);
 
 // Uncomment this line for production
-app.get('/*', (req, res) => res.sendFile(__dirname + '/public/build/index.html'));
+app.get('/*', (req, res) => res.sendFile(__dirname + './public/build/index.html'));
 
 module.exports = app;
