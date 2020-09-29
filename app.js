@@ -10,6 +10,8 @@ const cors = require('cors');
 const session = require('express-session');
 const passport = require('./config/passport');
 
+const { setLocals } = require("./middlewares")
+
 mongoose
     .connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology: true })
     .then((x) => console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`))
@@ -35,6 +37,8 @@ app.use(
         cookie: { maxAge: 1000 * 60 * 60 }
     })
 );
+
+app.use(setLocals(app));
 
 app.use(passport.initialize());
 app.use(passport.session());
