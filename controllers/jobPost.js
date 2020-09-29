@@ -12,12 +12,13 @@ exports.getJobPost = async(req, res) => {
 }
 
 exports.createJobPost = async(req, res) => {
-    const { name, description, location, image, crewTitle, contactInfo } = req.body
+    const { name, description, location, image, crewTitle, contactInfo, video } = req.body
     const jobPost = await JobPost.create({
         name,
         description,
         location,
         image,
+        video,
         crewTitle,
         contactInfo,
         owner: req.user.id

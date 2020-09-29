@@ -1,4 +1,5 @@
 const Project = require("../models/Project")
+const User = require("../models/User")
 
 exports.getProjects = async(req, res) => {
     const projects = await Project.find().populate("owner").populate("posts")
@@ -6,8 +7,13 @@ exports.getProjects = async(req, res) => {
 }
 
 exports.getProject = async(req, res) => {
-    const project = await Project.findById(req.params.projectId).populate("owner")
-        //TO DO: populate posts 
+    const project = await Project.findById(req.params.projectId).populate("owner").populate("posts").populate({
+        path: 'posts',
+        populate: { path: 'owner', model: 'User' }
+    }).populate({
+        path: 'posts',
+        populate: { path: 'project', model: 'Project' }
+    })
     res.status(200).json({ project })
 }
 
@@ -21,6 +27,8 @@ exports.createProject = async(req, res) => {
         date,
         owner: req.user.id
     })
+
+    await User.findByIdAndUpdate(req.user.id, { $push: { projects: project } })
     res.status(201).json({ project })
 }
 

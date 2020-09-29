@@ -9,6 +9,10 @@ const userSchema = new Schema({
     about: String,
     image: String,
     backgroundImage: String,
+    following: [{
+        type: Schema.Types.ObjectId,
+        ref: "User"
+    }],
     chats: [{
         type: Schema.Types.ObjectId,
         ref: "Chat"
@@ -79,6 +83,10 @@ const userSchema = new Schema({
     jobPosts: [{
         type: Schema.Types.ObjectId,
         ref: 'JobPost'
+    }],
+    projects: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Project'
     }]
 }, {
     timestamps: true,

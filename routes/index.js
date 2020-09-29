@@ -29,7 +29,9 @@ const {
     getUser,
     getUsers,
     updateUser,
-    deleteUser
+    deleteUser,
+    followUser,
+    unfollowUser
 } = require("../controllers/user")
 
 const {
@@ -52,6 +54,9 @@ router.get("/users/", catchErrors(getUsers))
 router.get("/users/:userId", catchErrors(getUser))
 router.put("/users/:userId", catchErrors(updateUser))
 router.delete("/users/:userId", catchErrors(deleteUser))
+
+router.get("/user/:userId", catchErrors(followUser))
+router.get("/userR/:userId", catchErrors(unfollowUser))
 
 
 //==========================PROJECT============================

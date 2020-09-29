@@ -5,6 +5,7 @@ const jobPostSchema = new Schema({
     description: String,
     location: String,
     image: String,
+    video: String,
     contactInfo: String,
     crewTitle: {
         type: String,
