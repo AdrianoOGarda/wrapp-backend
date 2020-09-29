@@ -6,13 +6,26 @@ exports.getUsers = async(req, res) => {
 }
 
 exports.getUser = async(req, res) => {
-    const user = await User.findById(req.params.userId).populate("projects").populate("jobPosts").populate("following").populate({
-        path: 'following',
-        populate: { path: 'projects', model: 'Project' }
-    }).populate("projects").populate({
-        path: 'projects',
-        populate: { path: 'owner', model: 'User' }
-    })
+    const user = await User.findById(req.params.userId).populate("projects").populate("jobPosts").populate("following")
+        .populate({
+            path: 'following',
+            populate: {
+                path: 'projects',
+                model: 'Project',
+                populate: { path: 'owner', model: 'User' },
+            }
+        })
+        .populate({
+            path: 'following',
+            populate: {
+                path: 'projects',
+                model: 'Project',
+                populate: { path: 'posts', model: 'CrewPost' }
+            }
+        })
+
+
+    console.log('user: ', user.following.map(f => f.projects))
     res.status(200).json({ user })
 }
 
