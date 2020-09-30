@@ -8,6 +8,7 @@ const userSchema = new Schema({
     facebookId: String,
     googleId: String,
     about: String,
+    location: String,
     image: String,
     backgroundImage: String,
     following: [{

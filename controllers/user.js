@@ -42,13 +42,14 @@ exports.getUser = async(req, res) => {
 // }
 
 exports.updateUser = async(req, res) => {
-    const { image, name, about, crewTitle, backgroundImage } = req.body
+    const { image, name, about, crewTitle, backgroundImage, location } = req.body
     const { userId } = req.params
 
     const user = await User.findByIdAndUpdate(userId, {
         image,
         backgroundImage,
         name,
+        location,
         about,
         crewTitle
     }, { new: true })
