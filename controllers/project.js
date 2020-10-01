@@ -1,5 +1,6 @@
 const Project = require("../models/Project")
 const User = require("../models/User")
+const CrewPost = require("../models/CrewPost")
 
 exports.getProjects = async(req, res) => {
     const projects = await Project.find().populate("owner").populate("posts")
@@ -46,6 +47,7 @@ exports.updateProject = async(req, res) => {
 
 exports.deleteProject = async(req, res) => {
     const { projectId } = req.params
+    await CrewPost.find({ project: projectId }).remove()
     await Project.findByIdAndRemove(projectId)
     res.status(200).json({ message: "deleted" })
 }

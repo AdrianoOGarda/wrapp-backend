@@ -23,23 +23,20 @@ exports.getUser = async(req, res) => {
                 populate: { path: 'posts', model: 'CrewPost' }
             }
         })
+        .populate({
+            path: 'following',
+            populate: {
+                path: 'jobPosts',
+                model: 'JobPost',
+                populate: { path: 'owner', model: 'User' },
+            }
+        })
 
 
     console.log('user: ', user.following.map(f => f.projects))
     res.status(200).json({ user })
 }
 
-
-// exports.getProject = async(req, res) => {
-//     const project = await Project.findById(req.params.projectId).populate("owner").populate("posts").populate({
-//         path: 'posts',
-//         populate: { path: 'owner', model: 'User' }
-//     }).populate({
-//         path: 'posts',
-//         populate: { path: 'project', model: 'Project' }
-//     })
-//     res.status(200).json({ project })
-// }
 
 exports.updateUser = async(req, res) => {
     const { image, name, about, crewTitle, backgroundImage, location } = req.body
@@ -66,6 +63,8 @@ exports.followUser = async(req, res) => {
     const { userId } = req.params
 
     const newUser = await User.findByIdAndUpdate(req.user.id, { $push: { following: userId } })
+    await User.findByIdAndUpdate(userId, { $push: { followers: req.user.id } })
+
     res.status(200).json({ newUser })
 }
 
@@ -73,5 +72,7 @@ exports.unfollowUser = async(req, res) => {
     const { userId } = req.params
 
     const newUser = await User.findByIdAndUpdate(req.user.id, { $pull: { following: userId } })
+    await User.findByIdAndUpdate(userId, { $pull: { followers: req.user.id } })
+
     res.status(200).json({ newUser })
 }

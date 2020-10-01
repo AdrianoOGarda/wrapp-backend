@@ -2,7 +2,7 @@ const JobPost = require("../models/JobPost")
 const User = require("../models/User")
 
 exports.getJobPosts = async(req, res) => {
-    const jobPosts = await JobPost.find()
+    const jobPosts = await JobPost.find().populate("owner")
     res.status(200).json({ jobPosts })
 }
 
