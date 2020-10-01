@@ -14,7 +14,8 @@ const {
     getCrewPost,
     createCrewPost,
     updateCrewPost,
-    deleteCrewPost
+    deleteCrewPost,
+    updateCrewProject
 } = require("../controllers/crewPost")
 
 const {
@@ -73,7 +74,7 @@ router.get("/crewPosts/:crewPostId", catchErrors(getCrewPost))
 router.post("/crewPosts/:projectId", catchErrors(createCrewPost))
 router.put("/crewPosts/:crewPostId", catchErrors(updateCrewPost))
 router.delete("/crewPosts/:crewPostId", catchErrors(deleteCrewPost))
-
+router.post("/crewPosts/R", catchErrors(updateCrewPost))
 
 //==========================JOB-POST============================
 router.get("/jobPosts/", catchErrors(getJobPosts))

@@ -11,6 +11,10 @@ const userSchema = new Schema({
     location: String,
     image: String,
     backgroundImage: String,
+    followers: [{
+        type: Schema.Types.ObjectId,
+        ref: "User"
+    }],
     following: [{
         type: Schema.Types.ObjectId,
         ref: "User"

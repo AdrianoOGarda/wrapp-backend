@@ -35,5 +35,12 @@ exports.deleteCrewPost = async(req, res) => {
     //const { projectId } = req.params
     await CrewPost.findByIdAndRemove(req.params.crewPostId)
 
+
     res.status(200).json({ message: "deleted" })
+}
+
+exports.updateCrewProject = async(req, res) => {
+    const { projectId } = req.params
+    const { crewP } = req.body
+    await Project.findByIdAndUpdate(projectId, { $pull: { posts: crewP } })
 }
