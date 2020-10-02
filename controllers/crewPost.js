@@ -24,7 +24,6 @@ exports.createCrewPost = async(req, res) => {
 }
 
 exports.updateCrewPost = async(req, res) => {
-    //const { projectId } = req.params
     const crewPost = await CrewPost.findByIdAndUpdate(
         req.params.crewPostId, {...req.body }, { new: true }
     )
@@ -32,7 +31,6 @@ exports.updateCrewPost = async(req, res) => {
 }
 
 exports.deleteCrewPost = async(req, res) => {
-    //const { projectId } = req.params
     await CrewPost.findByIdAndRemove(req.params.crewPostId)
 
 
