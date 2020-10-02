@@ -52,7 +52,7 @@ router.get("/auth/facebook/callback", (req, res, next) => {
 
         req.login(user, error => {
             if (error) return res.status(401).json({ error })
-            return res.redirect(process.env.FRONTENDPOINT + "/profile")
+            return res.redirect(process.env.FRONTENDPOINT + "/home")
         })
     })(req, res, next)
 })
@@ -69,7 +69,7 @@ router.get("/auth/google/callback", (req, res, next) => {
 
         req.login(user, error => {
             if (error) return res.status(401).json({ error })
-            return res.redirect(process.env.FRONTENDPOINT + "/profile")
+            return res.redirect(process.env.FRONTENDPOINT + "/home")
         })
     })(req, res, next)
 })
